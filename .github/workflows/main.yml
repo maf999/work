@@ -1,0 +1,33 @@
+name: Build Flet Android App
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build Flet app APK
+        uses: flet-dev/flet-build@v1
+        with:
+          module-name: final_android_app.py # <--- تأكد أن هذا هو اسم ملفك
+          platform: android
+
+      - name: Build Flet app AAB
+        uses: flet-dev/flet-build@v1
+        with:
+          module-name: final_android_app.py # <--- تأكد أن هذا هو اسم ملفك
+          platform: aab
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4 # <--- تم التحديث إلى الإصدار v4
+        with:
+          name: Flet-Android-Builds
+          path: |
+            build/apk/*.apk
+            build/aab/*.aab
