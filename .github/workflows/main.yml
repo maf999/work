@@ -12,6 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
       - name: Build Flet app APK
         uses: flet-dev/flet-build@v1
         with:
@@ -25,7 +30,7 @@ jobs:
           platform: aab
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4 # <--- تم التحديث إلى الإصدار v4
+        uses: actions/upload-artifact@v4
         with:
           name: Flet-Android-Builds
           path: |
